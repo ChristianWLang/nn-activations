@@ -15,39 +15,39 @@ DIRECTORY = 'single_imgs'
 
 class UnivariateOLS:
     def __init__(self, lr=0.01):
-        self.weight = np.random.randn()
+        self.beta = np.random.randn()
         self.bias = np.random.randn()
         self.lr = lr
 
     def __call__(self, x):
-        return self.weight * x + self.bias
+        return x * self.beta + self.bias
 
     def cost(self, x, y):
         return np.square(y - self(x)).mean()
 
     def update(self, x, y):
-        d_weight, d_bias = self.__derive__(x, y)
+        d_beta, d_bias = self.__derive__(x, y)
 
-        self.weight += d_weight * -self.lr
+        self.beta += d_beta * -self.lr
         self.bias += d_bias * -self.lr
 
     def __derive__(self, x, y):
         y_hat = self(x)
-        d_weight = (-2 / len(x)) * (x * (y - y_hat)).sum()
+        d_beta = (-2 / len(x)) * (x * (y - y_hat)).sum()
         d_bias = (-2 / len(x)) * (y - y_hat).sum()
-        return d_weight, d_bias
+        return d_beta, d_bias
 
 
 class RandomModel:
     def __init__(self):
-        steps = np.random.randint(1, 6)
+        n = np.random.randint(1, 6)
 
-        self.weights = np.random.uniform(-3, 3, size=(steps,))
-        self.biases = np.random.uniform(-3, 3, size=(steps,))
+        self.betas = np.random.uniform(-3, 3, size=(n,))
+        self.biases = np.random.uniform(-3, 3, size=(n,))
 
     def __call__(self, x):
-        for weight, bias in zip(self.weights, self.biases):
-            x = x * weight + bias
+        for beta, bias in zip(self.betas, self.biases):
+            x = x * beta + bias
         return x
 
 

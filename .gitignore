@@ -2,5 +2,6 @@
 .vscode
 .DS_Store
 
+temp_exports
 env
 venv
