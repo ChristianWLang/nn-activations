@@ -44,5 +44,5 @@ if __name__ == '__main__':
     y_true = model(X_test)
     y_pred = linear_model.predict(X_test)
 
-    print(r2_score(y_true, y_pred))
-    print(mean_squared_error(y_true, y_pred))
+    print(f'r2 score: {r2_score(y_true, y_pred)}')
+    print(f'mse: {mean_squared_error(y_true, y_pred)}')
